@@ -380,17 +380,17 @@ class Line(BaseObj):
         :param interface_factory: interface controller object
         :type interface_factory: InterfaceFactory
         """
-        self.interface = interface_factory
         super().__init__(self.__class__.__name__,
                          *self._defaults)
+        self.interface = interface_factory
         self._set_interface()
 
     def _set_interface(self):
         if self.interface:
             # If an interface is given, generate bindings
-            for parameter in self.get_parameters():
+            for parameter in self.get_fit_parameters():
                 name = parameter.name
-                self.set_binding(name, self.interface.generate_bindings)
+                self.interface.generate_bindings(name)
 
     @property
     def gradient(self):
